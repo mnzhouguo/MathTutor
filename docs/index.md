@@ -8,16 +8,7 @@ hero:
   image:
     src: /logo.png
     alt: MathTutor
-  actions:
-    - theme: brand
-      text: 📘 需求清单
-      link: /REQUIREMENTS.md
-    - theme: alt
-      text: 🕐 技术架构
-      link: /architecture/README.md
-    - theme: alt
-      text: 📅 开发计划
-      link: /development/README.md
+    
 
 features:
   - title: 🤖 苏格拉底式教学
@@ -122,6 +113,7 @@ features:
 ### 📘 核心规划文档
 
 - **[需求清单](/REQUIREMENTS.md)** - 完整功能需求、数据模型、非功能性需求、成功指标
+- **[业务流程图](/business-flow.md)** - 系统业务流程与模块协同关系
 - **[技术架构设计](/architecture/README.md)** - 技术选型、系统架构、数据库设计、API 设计
 - **[开发计划](/development/README.md)** - 开发优先级、里程碑计划、团队分工、风险管理
 

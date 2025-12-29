@@ -7,10 +7,17 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
   },
-  "keywords": ["math", "ai", "education", "tutor"],
+  "keywords": [
+    "math",
+    "ai",
+    "education",
+    "tutor"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "vitepress": "^1.6.4"
+    "mermaid": "^11.12.2",
+    "vitepress": "^1.6.4",
+    "vitepress-plugin-mermaid": "^2.0.17"
   }
 }

@@ -1,6 +1,8 @@
 import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
-export default defineConfig({
+export default withMermaid(
+  defineConfig({
   title: 'MathTutor',
   description: 'AI 智能数学辅导系统',
   themeConfig: {
@@ -68,3 +70,4 @@ export default defineConfig({
     }
   }
 })
+)
