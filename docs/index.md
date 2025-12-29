@@ -217,10 +217,8 @@ features:
   - [6. 知识扩展](/requirements/06-knowledge-extension.md)
   - [7. 复习模式](/requirements/07-review-mode.md)
 
-### 📕 项目文档
+### 📕 其他文档
 
-- **[项目概述](/guide/README.md)** - 项目介绍和知识库结构说明
-- **[知识库结构说明](/guide/knowledge-base.md)** - 数据模型详细说明
 - **[UI/UX 设计规范](/design/README.md)** - 设计理念和组件规范
 - **[知识库示例文件](https://github.com/your-repo/mathtutor/blob/main/knowledge_base/grade7_sem1_advanced_topics.json)** - 实际数据示例
 

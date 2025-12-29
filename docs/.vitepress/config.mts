@@ -9,20 +9,10 @@ export default defineConfig({
       { text: '需求清单', link: '/REQUIREMENTS.md' },
       { text: '技术架构', link: '/architecture/README.md' },
       { text: '开发计划', link: '/development/README.md' },
-      { text: '项目文档', link: '/guide/README.md' },
       { text: '设计规范', link: '/design/README.md' },
     ],
 
     sidebar: {
-      '/guide/': [
-        {
-          text: '项目文档',
-          items: [
-            { text: '项目概述', link: '/guide/README.md' },
-            { text: '知识库结构', link: '/guide/knowledge-base.md' },
-          ]
-        }
-      ],
       '/design/': [
         {
           text: '设计文档',
@@ -56,7 +46,6 @@ export default defineConfig({
         {
           text: '快速导航',
           items: [
-            { text: '项目文档', link: '/guide/README.md' },
             { text: 'UI/UX 设计规范', link: '/design/README.md' },
           ]
         }
