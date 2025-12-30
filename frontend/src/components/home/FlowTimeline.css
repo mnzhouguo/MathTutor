@@ -1,0 +1,155 @@
+/* ============================================================
+   FlowTimeline - 动态学习流程时间线
+   ============================================================ */
+
+.flow-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  position: relative;
+}
+
+/* 单个步骤 */
+.flow-step {
+  position: relative;
+  display: flex;
+  gap: var(--space-6);
+  padding: var(--space-6);
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: all var(--duration-base) var(--ease-out);
+}
+
+.flow-step:hover {
+  border-color: var(--math-blue);
+  box-shadow: var(--shadow-md);
+}
+
+/* 步骤编号区域 */
+.step-number-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-number {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--math-blue) 0%, var(--math-blue-dark) 100%);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--font-extrabold);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  z-index: 1;
+}
+
+.flow-step:hover .step-number {
+  box-shadow: var(--glow-sm);
+}
+
+/* 连接线 */
+.step-connector {
+  position: absolute;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: calc(100% + var(--space-6));
+  background: linear-gradient(180deg, var(--math-blue) 0%, var(--gray-300) 100%);
+  opacity: 0.3;
+}
+
+/* 最后一个步骤没有连接线 */
+.flow-step:last-child .step-connector {
+  display: none;
+}
+
+/* 步骤内容 */
+.step-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+}
+
+.step-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: var(--tracking-tight);
+}
+
+.step-description {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: var(--leading-relaxed);
+}
+
+/* 进度指示器 */
+.step-progress {
+  height: 3px;
+  background: linear-gradient(90deg, var(--math-blue) 0%, var(--accent-green) 100%);
+  border-radius: var(--radius-full);
+  margin-top: var(--space-2);
+}
+
+/* 光效 */
+.step-glow {
+  position: absolute;
+  inset: 0;
+  background: var(--math-blue);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .flow-step {
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-4);
+  }
+
+  .step-number-wrapper {
+    flex-direction: row;
+    gap: var(--space-3);
+  }
+
+  .step-connector {
+    display: none;
+  }
+
+  .step-number {
+    width: 56px;
+    height: 56px;
+    font-size: var(--text-lg);
+  }
+
+  .step-content {
+    padding-top: 0;
+  }
+
+  .step-title {
+    font-size: var(--text-lg);
+  }
+
+  .step-description {
+    font-size: var(--text-sm);
+  }
+}

@@ -62,21 +62,38 @@ features:
 
 ### 技术栈选型
 
-**前端技术栈**
-- **框架**：Vue 3 / React
-- **构建工具**：Vite
-- **UI 组件库**：Element Plus / Ant Design
-- **状态管理**：Pinia / Redux Toolkit
-- **图表库**：ECharts / Chart.js
+#### 前端技术栈
 
-**后端技术栈**
-- **框架**：Node.js + Express / Python + FastAPI
-- **数据库**：PostgreSQL (主数据) + Redis (缓存)
-- **AI 集成**：OpenAI API / Claude API
+- **框架**：React 18 + Vite
+- **语言**：TypeScript
+- **UI 组件库**：Ant Design
+- **状态管理**：Zustand
+- **路由**：React Router v6
+- **HTTP 客户端**：Axios
+- **数学公式**：KaTeX
+- **图表可视化**：ECharts
 
-**实验工具**
-- **渲染**：HTML5 Canvas / SVG
-- **动画**：GSAP / Anime.js
+#### 后端技术栈
+
+- **框架**：Python + FastAPI
+- **ORM**：SQLAlchemy
+- **数据库**：SQLite（零配置部署）
+- **AI 集成**：国产大模型 API
+  - 通义千问 Max（阿里云 DashScope）
+  - DeepSeek-V3
+- **API 文档**：自动生成 Swagger UI
+
+#### 实验工具
+
+- **渲染**：React + Konva.js（Canvas）
+- **动画**：GSAP
+- **数学计算**：math.js
+
+#### 技术选型原则
+
+- **MVP 优先**：使用最简单的技术栈快速验证核心功能
+- **渐进增强**：从 SQLite 开始，后期可平滑迁移到 PostgreSQL
+- **国产 AI**：优先使用国产大模型 API，保障稳定性和成本控制
 
 ### 系统架构
 
