@@ -1,0 +1,138 @@
+/**
+ * 本页目录折叠样式
+ * 为 VitePress 的右侧目录导航添加折叠/展开功能
+ */
+
+/* 目录容器样式 */
+.VPDocOutline {
+  position: relative;
+}
+
+/* 折叠按钮样式 */
+.outline-collapse-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+  transition: background-color 0.2s, color 0.2s;
+  user-select: none;
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+
+.outline-collapse-btn:hover {
+  background-color: var(--vp-c-bg-soft);
+}
+
+/* 折叠按钮图标 */
+.outline-collapse-btn .icon {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* 折叠状态下的图标旋转 */
+.outline-collapse-btn.collapsed .icon {
+  transform: rotate(-90deg);
+}
+
+/* 目录内容区域 */
+.VPDocOutline > .root > .outline-link {
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  max-height: 2000px;
+  opacity: 1;
+}
+
+/* 折叠状态 */
+.VPDocOutline > .root > .outline-link.collapsed {
+  max-height: 0;
+  opacity: 0;
+}
+
+/* 二级及以上目录项的折叠状态 */
+.VPDocOutline .outline-link {
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  max-height: 2000px;
+  opacity: 1;
+}
+
+.VPDocOutline .outline-link.collapsed {
+  max-height: 0;
+  opacity: 0;
+}
+
+/* 父级项的折叠按钮样式 */
+.outline-item-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--vp-c-text-2);
+  transition: transform 0.3s ease, color 0.2s;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.outline-item-toggle:hover {
+  color: var(--vp-c-text-1);
+  background-color: var(--vp-c-bg-soft);
+}
+
+.outline-item-toggle .icon {
+  width: 10px;
+  height: 10px;
+  transition: transform 0.3s ease;
+}
+
+/* 折叠状态下的图标旋转 */
+.outline-item-toggle.collapsed .icon {
+  transform: rotate(-90deg);
+}
+
+/* 深色模式优化 */
+.dark .outline-collapse-btn,
+.dark .outline-item-toggle {
+  color: var(--vp-c-text-1);
+}
+
+.dark .outline-collapse-btn:hover,
+.dark .outline-item-toggle:hover {
+  background-color: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-2);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .outline-collapse-btn {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+}
+
+/* 平滑滚动到锚点时的动画 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 目录项激活状态的增强 */
+.VPDocOutline .outline-link.active {
+  font-weight: 600;
+  color: var(--vp-c-brand-1);
+  border-left-color: var(--vp-c-brand-1);
+}
