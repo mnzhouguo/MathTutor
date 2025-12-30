@@ -23,6 +23,15 @@ export default withMermaid(
           ]
         }
       ],
+      '/architecture/': [
+        {
+          text: '技术架构设计',
+          items: [
+            { text: '架构总览', link: '/architecture/README.md' },
+            { text: '知识体系模块设计', link: '/architecture/knowledge-system-design.md' },
+          ]
+        }
+      ],
       '/': [
         {
           text: '核心规划',
@@ -43,6 +52,13 @@ export default withMermaid(
             { text: '5. 学习报告生成', link: '/requirements/05-learning-reports.md' },
             { text: '6. 知识扩展', link: '/requirements/06-knowledge-extension.md' },
             { text: '7. 复习模式', link: '/requirements/07-review-mode.md' },
+          ]
+        },
+        {
+          text: '技术架构文档',
+          items: [
+            { text: '架构总览', link: '/architecture/README.md' },
+            { text: '知识体系模块设计', link: '/architecture/knowledge-system-design.md' },
           ]
         },
         {

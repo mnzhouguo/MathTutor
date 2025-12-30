@@ -38,6 +38,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       icon: <BookOutlined />,
       label: <Link to="/knowledge">知识体系</Link>,
     },
+    {
+      key: '#',
+      icon: <BookOutlined />,
+      label: <a href="https://github.com/anthropics/claude-code" target="_blank" rel="noopener noreferrer">#</a>,
+    },
   ];
 
   return (

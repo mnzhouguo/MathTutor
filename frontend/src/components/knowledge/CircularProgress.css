@@ -1,0 +1,28 @@
+.circular-progress {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circular-progress__progress {
+  transition: stroke-dashoffset 0.5s ease-out;
+}
+
+.circular-progress__label {
+  position: absolute;
+  font-weight: 600;
+  color: #1A56DB;
+}
+
+.circular-progress--small .circular-progress__label {
+  font-size: 0.75rem;
+}
+
+.circular-progress--medium .circular-progress__label {
+  font-size: 0.875rem;
+}
+
+.circular-progress--large .circular-progress__label {
+  font-size: 1rem;
+}
