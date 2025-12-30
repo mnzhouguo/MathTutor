@@ -53,7 +53,21 @@ async def recognize_and_save(
 
     # 5. 调用 OCR 服务
     ocr_service = OCRService(db)
-    result = await ocr_service.recognize_and_save(file.filename, image_bytes)
+
+    try:
+        result = await ocr_service.recognize_and_save(file.filename, image_bytes)
+    except Exception as e:
+        import traceback
+        error_details = traceback.format_exc()
+        print(f"ERROR in recognize_and_save: {error_details}")
+        raise HTTPException(
+            status_code=500,
+            detail={
+                "error": str(e),
+                "error_code": "ERR_OCR_EXCEPTION",
+                "traceback": error_details
+            }
+        )
 
     # 6. 检查识别是否成功
     if not result.success:

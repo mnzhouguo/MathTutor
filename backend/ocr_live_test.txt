@@ -1,0 +1,39 @@
+Text length: 466
+Text preview: 24.（10分）已知f（x）是关于字母x的多项式 f(x)=a_1x^n+a_2x^(n-1)+⋯+a_(n-1)x^2+a_nx+c （其中a1,a2,…,an是各项的系数,c是常数项);我们规定f
+Question type: essay
+Question number: 24
+Score: 10
+Words count: 466
+Confidence: 0.6919
+
+Raw JSON preview:
+{
+  "qus_result_num": 1,
+  "qus_result": [
+    {
+      "qus_type": "3",
+      "qus_location": {
+        "points": [
+          {
+            "x": 19,
+            "y": 22
+          },
+          {
+            "x": 954,
+            "y": 16
+          },
+          {
+            "x": 958,
+            "y": 487
+          },
+          {
+            "x": 20,
+            "y": 489
+          }
+        ]
+      },
+      "qus_element": [
+        {
+          "elem_location": {
+            "points": [
+            

@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "E:\code\MathTutor\backend\test_ocr_direct.py", line 5, in <module>
+    from app.core.database import AsyncSessionLocal
+ImportError: cannot import name 'AsyncSessionLocal' from 'app.core.database' (E:\code\MathTutor\backend\app\core\database.py)

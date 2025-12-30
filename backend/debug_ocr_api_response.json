@@ -1,0 +1,301 @@
+{
+  "qus_result_num": 1,
+  "qus_result": [
+    {
+      "qus_type": "3",
+      "qus_location": {
+        "points": [
+          {
+            "x": 19,
+            "y": 22
+          },
+          {
+            "x": 954,
+            "y": 16
+          },
+          {
+            "x": 958,
+            "y": 487
+          },
+          {
+            "x": 20,
+            "y": 489
+          }
+        ]
+      },
+      "qus_element": [
+        {
+          "elem_location": {
+            "points": [
+              {
+                "x": 26,
+                "y": 29
+              },
+              {
+                "x": 929,
+                "y": 25
+              },
+              {
+                "x": 929,
+                "y": 69
+              },
+              {
+                "x": 26,
+                "y": 70
+              }
+            ]
+          },
+          "elem_word": [
+            {
+              "word_location": {
+                "top": 32,
+                "left": 33,
+                "width": 888,
+                "height": 36
+              },
+              "word": "24.（10分）已知f（x）是关于字母x的多项式 f(x)=a_1x^n+a_2x^(n-1)+⋯+a_(n-1)x^2+a_nx+c （其中",
+              "word_type": "print"
+            }
+          ],
+          "elem_type": "0",
+          "elem_probability": 0.15007779
+        },
+        {
+          "elem_location": {
+            "points": [
+              {
+                "x": 44,
+                "y": 87
+              },
+              {
+                "x": 931,
+                "y": 79
+              },
+              {
+                "x": 931,
+                "y": 219
+              },
+              {
+                "x": 44,
+                "y": 226
+              }
+            ]
+          },
+          "elem_word": [
+            {
+              "word_location": {
+                "top": 93,
+                "left": 61,
+                "width": 861,
+                "height": 23
+              },
+              "word": "a1,a2,…,an是各项的系数,c是常数项);我们规定f(x)的伴随多项式是g(x),且",
+              "word_type": "print"
+            },
+            {
+              "word_location": {
+                "top": 136,
+                "left": 59,
+                "width": 861,
+                "height": 36
+              },
+              "word": "g(x)=na_1x^(n-1)+(n-1)a_2x^(n-2)+⋯+2a_(n-1)x+a_n  如 f(x)=4x^3-3x^2+5x-8 ，则它的伴随多",
+              "word_type": "print"
+            },
+            {
+              "word_location": {
+                "top": 196,
+                "left": 60,
+                "width": 731,
+                "height": 24
+              },
+              "word": "项式 g(x)=3*4x^2-2*3x+1*5=12x^2-6x+5 请根据上面的材料,完成下列问题:",
+              "word_type": "print"
+            }
+          ],
+          "elem_type": "0",
+          "elem_probability": 0.6072154045
+        },
+        {
+          "elem_location": {
+            "points": [
+              {
+                "x": 65,
+                "y": 234
+              },
+              {
+                "x": 835,
+                "y": 234
+              },
+              {
+                "x": 835,
+                "y": 270
+              },
+              {
+                "x": 66,
+                "y": 268
+              }
+            ]
+          },
+          "elem_word": [
+            {
+              "word_location": {
+                "top": 240,
+                "left": 75,
+                "width": 573,
+                "height": 24
+              },
+              "word": "(1)已知 f(x)=2x^3+5x^2-6x+2022 ,则它的伴随多项式g(x)=",
+              "word_type": "print"
+            }
+          ],
+          "elem_type": "0",
+          "elem_probability": 0.8545600772
+        },
+        {
+          "elem_location": {
+            "points": [
+              {
+                "x": 654,
+                "y": 233
+              },
+              {
+                "x": 817,
+                "y": 232
+              },
+              {
+                "x": 817,
+                "y": 265
+              },
+              {
+                "x": 654,
+                "y": 265
+              }
+            ]
+          },
+          "elem_word": [],
+          "elem_type": "2",
+          "elem_probability": 0.6983869076
+        },
+        {
+          "elem_location": {
+            "points": [
+              {
+                "x": 54,
+                "y": 281
+              },
+              {
+                "x": 929,
+                "y": 281
+              },
+              {
+                "x": 928,
+                "y": 355
+              },
+              {
+                "x": 53,
+                "y": 357
+              }
+            ]
+          },
+          "elem_word": [
+            {
+              "word_location": {
+                "top": 285,
+                "left": 74,
+                "width": 850,
+                "height": 24
+              },
+              "word": "(2)已知 f(x)=3x^2-2(7x-1) ,且它的伴随多项式g(x)满足方程g(x)=ax,求使得关于x",
+              "word_type": "print"
+            },
+            {
+              "word_location": {
+                "top": 330,
+                "left": 60,
+                "width": 249,
+                "height": 22
+              },
+              "word": "的方程有正整数解的a的值;",
+              "word_type": "print"
+            }
+          ],
+          "elem_type": "0",
+          "elem_probability": 0.9365195632
+        },
+        {
+          "elem_location": {
+            "points": [
+              {
+                "x": 54,
+                "y": 370
+              },
+              {
+                "x": 934,
+                "y": 370
+              },
+              {
+                "x": 932,
+                "y": 462
+              },
+              {
+                "x": 53,
+                "y": 460
+              }
+            ]
+          },
+          "elem_word": [
+            {
+              "word_location": {
+                "top": 374,
+                "left": 73,
+                "width": 841,
+                "height": 23
+              },
+              "word": "(3)已知二次多项式 f_1(x) 与 f_2(x) 的伴随多项式分别是g1(x)和 g_2(x) ,且 g_1(x)=4x-b",
+              "word_type": "print"
+            },
+            {
+              "word_location": {
+                "top": 420,
+                "left": 59,
+                "width": 566,
+                "height": 31
+              },
+              "word": "和 g_2(x)=2x+3 ，求解关于x的方程: f_1(x)+f_2(x)=3x^2 .",
+              "word_type": "print"
+            }
+          ],
+          "elem_type": "0",
+          "elem_probability": 0.9112281799
+        }
+      ],
+      "qus_probability": 0.7814941406
+    }
+  ],
+  "qus_figure": [
+    {
+      "fig_location": {
+        "points": [
+          {
+            "x": 19,
+            "y": 22
+          },
+          {
+            "x": 954,
+            "y": 16
+          },
+          {
+            "x": 958,
+            "y": 487
+          },
+          {
+            "x": 20,
+            "y": 489
+          }
+        ]
+      }
+    }
+  ],
+  "log_id": 2006011273291610537
+}

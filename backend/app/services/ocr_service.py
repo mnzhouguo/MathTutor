@@ -3,6 +3,7 @@ OCR 服务层 - 业务逻辑
 """
 import os
 import uuid
+import json
 from datetime import datetime
 from typing import Dict, Any, Optional
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -51,16 +52,20 @@ class OCRService:
             problem = Problem(
                 problem_id=problem_id,
                 content=ocr_result['text'],
+                question_type=ocr_result.get('question_type'),
                 source='OCR识别',
                 status='pending',
-                quality_score=quality_assessment['grade']
+                quality_score=quality_assessment['grade'],
+                question_number=ocr_result.get('question_number'),
+                score=ocr_result.get('score'),
+                parsed_data=json.dumps(ocr_result.get('parsed_data', {}), ensure_ascii=False)
             )
             self.db.add(problem)
             await self.db.flush()  # 获取 problem.id
 
             # 6. 创建 OCR 记录
+            print(f"DEBUG: Creating OCRRecord with filename={filename}")
             ocr_record = OCRRecord(
-                problem_id=problem.id,
                 filename=filename,
                 file_path=file_path,
                 recognized_text=ocr_result['text'],
@@ -70,6 +75,7 @@ class OCRService:
                 processing_time_ms=ocr_result['processing_time_ms'],
                 status='success'
             )
+            print(f"DEBUG: OCRRecord created successfully")
             self.db.add(ocr_record)
             await self.db.flush()
 
@@ -95,6 +101,9 @@ class OCRService:
 
         except Exception as e:
             await self.db.rollback()
+            import traceback
+            error_trace = traceback.format_exc()
+            print(f"ERROR in recognize_and_save: {error_trace}")
             return OCRResponseSchema(
                 success=False,
                 error=str(e),
@@ -194,15 +203,14 @@ class OCRService:
         old_ocr_record.raw_json = new_ocr_result.get('raw_json')
         old_ocr_record.processing_time_ms = new_ocr_result['processing_time_ms']
 
-        # 5. 更新关联的题目
-        if old_ocr_record.problem_id:
-            stmt = select(Problem).where(Problem.id == old_ocr_record.problem_id)
-            result = await self.db.execute(stmt)
-            problem = result.scalar_one_or_none()
-            if problem:
-                problem.content = new_ocr_result['text']
-                quality_assessment = self.ocr_client.assess_quality(new_ocr_result['confidence'])
-                problem.quality_score = quality_assessment['grade']
+        # 5. 更新关联的题目 - 通过反向关系查找
+        stmt = select(Problem).where(Problem.ocr_record_id == ocr_record_id)
+        result = await self.db.execute(stmt)
+        problem = result.scalar_one_or_none()
+        if problem:
+            problem.content = new_ocr_result['text']
+            quality_assessment = self.ocr_client.assess_quality(new_ocr_result['confidence'])
+            problem.quality_score = quality_assessment['grade']
 
         await self.db.commit()
 

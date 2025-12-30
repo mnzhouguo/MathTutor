@@ -21,6 +21,12 @@ class Problem(Base):
     status = Column(String(20), default='pending')  # pending/completed/archived
     quality_score = Column(String(1))  # A/B/C/D
     tags = Column(Text)  # JSON 数组字符串
+
+    # OCR 解析后的额外信息
+    question_number = Column(String(20))  # 题号，如 "24"
+    score = Column(String(10))  # 分值，如 "10"
+    parsed_data = Column(Text)  # JSON 字符串，存储解析后的完整结构化数据
+
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

@@ -44,6 +44,14 @@ async def startup_event():
     await init_db()
     print("Database initialized successfully!")
 
+    # Debug: Print OCRRecord columns
+    from app.models.problem import OCRRecord
+    from sqlalchemy import inspect
+    mapper = inspect(OCRRecord)
+    print("OCRRecord columns:")
+    for col in mapper.columns:
+        print(f"  - {col.name}")
+
 
 @app.get("/")
 async def root():
