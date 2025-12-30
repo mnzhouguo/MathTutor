@@ -1,6 +1,6 @@
 import { Layout as AntLayout, Menu, Button } from 'antd';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { HomeOutlined, BookOutlined, RocketOutlined } from '@ant-design/icons';
+import { HomeOutlined, BookOutlined, RocketOutlined, DatabaseOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import './Layout.css';
 
@@ -37,6 +37,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       key: '/knowledge',
       icon: <BookOutlined />,
       label: <Link to="/knowledge">知识体系</Link>,
+    },
+    {
+      key: '/problems',
+      icon: <DatabaseOutlined />,
+      label: <Link to="/problems">题库管理</Link>,
     },
     {
       key: '#',
