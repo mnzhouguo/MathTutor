@@ -1,0 +1,26 @@
+============================================================
+Updated OCR Test - Corrected Type Mapping
+============================================================
+
+[SUCCESS] OCR Recognition
+
+Problem ID: P_MATH_2025_854
+Content Length: 466 characters
+Confidence: 0.6919
+Words Count: 466
+
+[Database Verification]
+  - question_type: essay
+  - question_number: 24
+  - score: 10
+  - quality_score: C
+
+[Type Mapping]
+  API返回: qus_type=3
+  存储值: essay
+  显示名称: 问答题
+
+Content Preview:
+------------------------------------------------------------
+24.（10分）已知f（x）是关于字母x的多项式 f(x)=a_1x^n+a_2x^(n-1)+⋯+a_(n-1)x^2+a_nx+c （其中a1,a2,…,an是各项的系数,c是常数项);我们规定f(x)的伴随多项式是g(x),且g(x)=na_1x^(n-1)+(n-1)a_2x^(n-2)+⋯+2a_(n-1)x+a_n  如 f(x)=4x^3-3x^2+5x-8 ，则它的伴随多项式 g(x)=3*4x^2-2*3x+1*5=12x^2-6x+5 请根据上面的材料,完成下列问题:(1)已知 f(x)=2x^3+5x^2-6x+2022 ,则它的伴随多项式g(x)=(2)已知 f(x)=...
+------------------------------------------------------------
