@@ -48,23 +48,7 @@ class OCRService:
             # 4. 生成题目 ID
             problem_id = self._generate_problem_id()
 
-            # 5. 创建题目记录
-            problem = Problem(
-                problem_id=problem_id,
-                content=ocr_result['text'],
-                question_type=ocr_result.get('question_type'),
-                source='OCR识别',
-                status='pending',
-                quality_score=quality_assessment['grade'],
-                question_number=ocr_result.get('question_number'),
-                score=ocr_result.get('score'),
-                parsed_data=json.dumps(ocr_result.get('parsed_data', {}), ensure_ascii=False)
-            )
-            self.db.add(problem)
-            await self.db.flush()  # 获取 problem.id
-
-            # 6. 创建 OCR 记录
-            print(f"DEBUG: Creating OCRRecord with filename={filename}")
+            # 5. 先创建 OCR 记录 (确保获取 ID)
             ocr_record = OCRRecord(
                 filename=filename,
                 file_path=file_path,
@@ -75,19 +59,30 @@ class OCRService:
                 processing_time_ms=ocr_result['processing_time_ms'],
                 status='success'
             )
-            print(f"DEBUG: OCRRecord created successfully")
             self.db.add(ocr_record)
-            await self.db.flush()
+            await self.db.flush()  # 获取 ocr_record.id
 
-            # 7. 更新题目的 ocr_record_id
-            problem.ocr_record_id = ocr_record.id
+            # 6. 创建题目记录,直接关联 ocr_record_id
+            problem = Problem(
+                problem_id=problem_id,
+                content=ocr_result['text'],
+                question_type=ocr_result.get('question_type'),
+                source='OCR识别',
+                status='pending',
+                quality_score=quality_assessment['grade'],
+                question_number=ocr_result.get('question_number'),
+                score=ocr_result.get('score'),
+                parsed_data=json.dumps(ocr_result.get('parsed_data', {}), ensure_ascii=False),
+                ocr_record_id=ocr_record.id  # 直接设置外键
+            )
+            self.db.add(problem)
 
-            # 8. 提交事务
+            # 7. 提交事务
             await self.db.commit()
             await self.db.refresh(problem)
             await self.db.refresh(ocr_record)
 
-            # 9. 返回结果
+            # 8. 返回结果
             return OCRResponseSchema(
                 success=True,
                 problem_id=problem.problem_id,

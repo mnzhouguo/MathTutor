@@ -1,5 +1,5 @@
 /**
- * OCR 识别模态框组件
+ * OCR 识别模态框组件 - 学术极简主义设计
  */
 import React, { useState } from 'react';
 import {
@@ -8,20 +8,17 @@ import {
   message,
   Progress,
   Button,
-  Space,
-  Result,
   Descriptions,
   Tag
 } from 'antd';
 import {
-  UploadOutlined,
   InboxOutlined,
-  CheckCircleOutlined,
   EyeOutlined,
   PlusOutlined
 } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
-import { recognizeAndSave, type OCRResult } from '../../services/ocrService';
+import { problemsApi, type OCRResult } from '../../api/problemsApi';
+import './OCRModal.css';
 
 const { Dragger } = Upload;
 
@@ -33,7 +30,7 @@ interface OCRModalProps {
 
 const OCRModal: React.FC<OCRModalProps> = ({ visible, onClose, onSuccess }) => {
   const [currentStep, setCurrentStep] = useState<'upload' | 'processing' | 'success'>('upload');
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [, setUploadedFile] = useState<File | null>(null);
   const [ocrResult, setOcrResult] = useState<OCRResult | null>(null);
   const [progress, setProgress] = useState(0);
 
@@ -70,7 +67,7 @@ const OCRModal: React.FC<OCRModalProps> = ({ visible, onClose, onSuccess }) => {
 
     try {
       // 调用 OCR API
-      const result = await recognizeAndSave(file);
+      const result = await problemsApi.recognizeAndSave(file);
 
       clearInterval(progressInterval);
       setProgress(100);
@@ -119,18 +116,24 @@ const OCRModal: React.FC<OCRModalProps> = ({ visible, onClose, onSuccess }) => {
 
   return (
     <Modal
-      title="OCR 图像识别"
+      title={
+        <div className="ocr-modal-title">
+          <span className="title-icon">📷</span>
+          <span>OCR 图像识别</span>
+        </div>
+      }
       open={visible}
       onCancel={onClose}
       width={800}
       footer={null}
-      destroyOnClose
+      className="ocr-modal"
+      centered
     >
       {currentStep === 'upload' && (
-        <div style={{ padding: '20px 0' }}>
-          <Dragger {...uploadProps}>
+        <div className="ocr-upload-step">
+          <Dragger {...uploadProps} className="ocr-uploader">
             <p className="ant-upload-drag-icon">
-              <InboxOutlined style={{ fontSize: 64, color: '#1890ff' }} />
+              <InboxOutlined />
             </p>
             <p className="ant-upload-text">点击或拖拽图片到此处上传</p>
             <p className="ant-upload-hint">
@@ -138,9 +141,9 @@ const OCRModal: React.FC<OCRModalProps> = ({ visible, onClose, onSuccess }) => {
             </p>
           </Dragger>
 
-          <div style={{ marginTop: 24, color: '#666' }}>
-            <p>提示：</p>
-            <ul style={{ paddingLeft: 20 }}>
+          <div className="ocr-upload-tips">
+            <p className="tips-title">💡 提示：</p>
+            <ul className="tips-list">
               <li>单次上传一张图片，每张图片应仅包含一道题目</li>
               <li>确保图片清晰，文字无模糊</li>
               <li>建议使用试卷、教材的高清扫描件</li>
@@ -150,89 +153,116 @@ const OCRModal: React.FC<OCRModalProps> = ({ visible, onClose, onSuccess }) => {
       )}
 
       {currentStep === 'processing' && (
-        <div style={{ padding: '40px 20px', textAlign: 'center' }}>
-          <div style={{ fontSize: 48, marginBottom: 24 }}>🔍</div>
-          <h3>正在识别中...</h3>
-          <Progress percent={progress} status="active" style={{ marginBottom: 16 }} />
-          <p style={{ color: '#666' }}>
+        <div className="ocr-processing-step">
+          <div className="processing-animation">
+            <div className="pulse-ring"></div>
+            <div className="pulse-ring delay-1"></div>
+            <div className="pulse-ring delay-2"></div>
+            <span className="processing-icon">🔍</span>
+          </div>
+          <h3 className="processing-title">正在识别中...</h3>
+          <Progress
+            percent={progress}
+            status="active"
+            strokeColor={{
+              '0%': '#1A56DB',
+              '100%': '#8B5CF6',
+            }}
+            className="processing-progress"
+          />
+          <p className="processing-status">
             预计剩余时间：{progress < 100 ? '几秒' : '完成中...'}
           </p>
 
-          <div style={{ marginTop: 32, textAlign: 'left', maxWidth: 400, margin: '0 auto' }}>
-            <p>识别步骤：</p>
-            <ul style={{ paddingLeft: 20, lineHeight: 2 }}>
-              <li>✅ 1. 上传图片完成</li>
-              <li>{progress < 50 ? '⏳' : '✅'} 2. OCR 文字识别...</li>
-              <li>{progress < 80 ? '⏳' : '✅'} 3. 正在保存到题库...</li>
+          <div className="processing-steps">
+            <p className="steps-title">识别步骤：</p>
+            <ul className="steps-list">
+              <li className="step-completed">✅ 1. 上传图片完成</li>
+              <li className={progress < 50 ? 'step-pending' : 'step-completed'}>
+                {progress < 50 ? '⏳' : '✅'} 2. OCR 文字识别...
+              </li>
+              <li className={progress < 80 ? 'step-pending' : 'step-completed'}>
+                {progress < 80 ? '⏳' : '✅'} 3. 正在保存到题库...
+              </li>
             </ul>
           </div>
         </div>
       )}
 
       {currentStep === 'success' && ocrResult && (
-        <div style={{ padding: '20px 0' }}>
-          <Result
-            status="success"
-            title="识别成功！"
-            subTitle="题目已自动保存到题库"
-            extra={[
-              <Button type="primary" key="detail" icon={<EyeOutlined />} onClick={handleViewDetail}>
-                查看详情
-              </Button>,
-              <Button key="continue" icon={<PlusOutlined />} onClick={handleContinue}>
-                继续识别
-              </Button>,
-              <Button key="close" onClick={onClose}>
-                关闭
-              </Button>,
-            ]}
-          />
+        <div className="ocr-success-step">
+          <div className="success-animation">
+            <div className="success-checkmark">✓</div>
+          </div>
+          <h3 className="success-title">识别成功！</h3>
+          <p className="success-subtitle">题目已自动保存到题库</p>
+
+          <div className="success-actions">
+            <Button
+              type="primary"
+              size="large"
+              className="action-button action-button-primary"
+              icon={<EyeOutlined />}
+              onClick={handleViewDetail}
+            >
+              查看详情
+            </Button>
+            <Button
+              size="large"
+              className="action-button action-button-secondary"
+              icon={<PlusOutlined />}
+              onClick={handleContinue}
+            >
+              继续识别
+            </Button>
+            <Button
+              size="large"
+              className="action-button action-button-default"
+              onClick={onClose}
+            >
+              关闭
+            </Button>
+          </div>
 
           <Descriptions
             title="识别信息"
-            bordered
+            bordered={false}
             column={1}
-            style={{ marginTop: 24 }}
+            className="ocr-descriptions"
           >
-            <Descriptions.Item label="题目ID">{ocrResult.problem_id}</Descriptions.Item>
+            <Descriptions.Item label="题目ID">
+              <code className="result-code">{ocrResult.problem_id}</code>
+            </Descriptions.Item>
             <Descriptions.Item label="OCR置信度">
               <Tag
-                color={
+                className={`confidence-tag confidence-${
                   ocrResult.confidence_score! >= 0.9
-                    ? 'green'
+                    ? 'high'
                     : ocrResult.confidence_score! >= 0.7
-                    ? 'orange'
-                    : 'red'
-                }
+                    ? 'medium'
+                    : 'low'
+                }`}
               >
                 {(ocrResult.confidence_score! * 100).toFixed(1)}%
               </Tag>
               {ocrResult.confidence_score! >= 0.9 && (
-                <Tag color="green" style={{ marginLeft: 8 }}>
+                <Tag className="quality-tag" color="success">
                   高质量
                 </Tag>
               )}
             </Descriptions.Item>
             <Descriptions.Item label="处理时长">
-              {ocrResult.processing_time_ms}ms
+              <span className="result-value">{ocrResult.processing_time_ms}ms</span>
             </Descriptions.Item>
-            <Descriptions.Item label="识别字数">{ocrResult.words_count} 个字符</Descriptions.Item>
+            <Descriptions.Item label="识别字数">
+              <span className="result-value">{ocrResult.words_count} 个字符</span>
+            </Descriptions.Item>
           </Descriptions>
 
           {ocrResult.content && (
-            <div style={{ marginTop: 24 }}>
-              <h4>识别内容预览：</h4>
-              <div
-                style={{
-                  padding: 16,
-                  background: '#f5f5f5',
-                  borderRadius: 4,
-                  marginTop: 8,
-                  maxHeight: 200,
-                  overflow: 'auto',
-                  whiteSpace: 'pre-wrap',
-                }}
-              >
+            <div className="ocr-content-preview">
+              <h4 className="preview-title">识别内容预览：</h4>
+              <div className="preview-content">
                 {ocrResult.content}
               </div>
             </div>

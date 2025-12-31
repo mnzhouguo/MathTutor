@@ -2,12 +2,14 @@
  * 知识体系相关类型定义
  */
 
-export enum LearningStatus {
-  NOT_STARTED = 'not_started',
-  IN_PROGRESS = 'in_progress',
-  MASTERED = 'mastered',
-  NEED_REVIEW = 'need_review',
-}
+export const LearningStatus = {
+  NOT_STARTED: 'not_started',
+  IN_PROGRESS: 'in_progress',
+  MASTERED: 'mastered',
+  NEED_REVIEW: 'need_review',
+} as const;
+
+export type LearningStatus = typeof LearningStatus[keyof typeof LearningStatus];
 
 export interface KnowledgePoint {
   id: number;

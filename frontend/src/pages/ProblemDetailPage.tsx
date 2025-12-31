@@ -28,7 +28,7 @@ import {
   SaveOutlined,
   RollbackOutlined
 } from '@ant-design/icons';
-import { getProblemDetail, updateProblem, type Problem } from '../services/ocrService';
+import { problemsApi, type Problem } from '../api/problemsApi';
 
 const ProblemDetailPage: React.FC = () => {
   const { problemId } = useParams<{ problemId: string }>();
@@ -46,7 +46,7 @@ const ProblemDetailPage: React.FC = () => {
 
     setLoading(true);
     try {
-      const data = await getProblemDetail(problemId);
+      const data = await problemsApi.getDetail(problemId);
       setProblem(data);
       setEditForm(data);
     } catch (error: any) {
@@ -75,7 +75,7 @@ const ProblemDetailPage: React.FC = () => {
   // 保存修改
   const handleSave = async () => {
     try {
-      const updated = await updateProblem(problemId!, editForm);
+      const updated = await problemsApi.update(problemId!, editForm);
       setProblem(updated);
       setEditing(false);
       message.success('保存成功');

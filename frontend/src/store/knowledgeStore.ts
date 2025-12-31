@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Curriculum, Module, Topic, GradeType, SemesterType, LearningStatus } from '../types/knowledge';
+import type { Curriculum, Module, Topic, GradeType, SemesterType } from '../types/knowledge';
 import { knowledgeApi } from '../api/knowledgeApi';
 import curriculumData from '../../../knowledge_base/grade7_sem1_advanced_topics.json';
 

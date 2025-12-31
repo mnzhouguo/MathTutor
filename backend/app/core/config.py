@@ -17,13 +17,18 @@ class Settings(BaseSettings):
     frontend_url: str = "http://localhost:5173"
 
     # 百度 OCR
-    baidu_ocr_api_key: str = "yuKIK2DC61nyyRCDVXwSMKuJ"
-    baidu_ocr_secret_key: str = "t2uybCmT8pUeLdMFyeXJsULjnw6VYg5l"
+    baidu_ocr_api_key: str = ""
+    baidu_ocr_secret_key: str = ""
 
     # 文件上传
     upload_path: str = "./uploads"
     max_file_size: int = 5242880  # 5MB
     allowed_formats: list = ["jpg", "jpeg", "png"]
+
+    @property
+    def baidu_ocr_configured(self) -> bool:
+        """检查百度 OCR 是否已配置"""
+        return bool(self.baidu_ocr_api_key and self.baidu_ocr_secret_key)
 
     class Config:
         env_file = ".env"
