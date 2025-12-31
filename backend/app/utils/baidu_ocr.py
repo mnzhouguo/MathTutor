@@ -141,25 +141,29 @@ class BaiduOCRClient:
         """
         解析 OCR API 响应，提取完整的题目信息
 
-        百度教育场景识别 API 返回结构：
+        百度教育场景识别 API 返回结构（官方文档）：
         {
+            "log_id": 2006378330514534888,
             "qus_result_num": 1,
             "qus_result": [{
-                "qus_type": "3",           # 题目类型：0=选择,1=填空,2=判断,3=解答,4=计算
+                "qus_type": 3,              # 题目类型：0=选择题,1=判断题,2=填空题,3=问答题,4=其他
+                "qus_probability": 0.78,    # 题目置信度
+                "qus_location": [...],      # 题目位置四角点坐标
                 "qus_element": [
                     {
-                        "elem_type": "0",   # 元素类型：0=文本, 2=填空
-                        "elem_word": [      # 词语数组
+                        "elem_type": 0,     # 元素类型：0=题干,1=子题,2=答案,3=选项,4=配图,5=参考答案
+                        "elem_probability": 0.95,
+                        "elem_location": [...],
+                        "elem_word": [
                             {
                                 "word": "实际文本内容",
-                                "word_type": "print"
+                                "word_type": "print"  # handwriting=手写, print=印刷
                             }
-                        ],
-                        "elem_probability": 0.95
+                        ]
                     }
-                ],
-                "qus_probability": 0.78    # 整体置信度
-            }]
+                ]
+            }],
+            "qus_figure": [...]              # 试卷内题目图片信息
         }
 
         Args:
@@ -203,13 +207,14 @@ class BaiduOCRClient:
         qus_type = first_qus.get('qus_type', 'unknown')
         qus_probability = first_qus.get('qus_probability', 0.0)
 
-        # 题目类型映射（百度OCR文档）
+        # 题目类型映射（百度OCR官方文档）
+        # 0：选择题；1：判断题；2：填空题；3：问答题；4：其他
         type_map = {
             '0': 'choice',       # 选择题
-            '1': 'fill_blank',   # 填空题
-            '2': 'judge',        # 判断题
-            '3': 'essay',        # 解答题/主观题
-            '4': 'calculation',  # 计算题
+            '1': 'judge',        # 判断题
+            '2': 'fill_blank',   # 填空题
+            '3': 'essay',        # 问答题/主观题
+            '4': 'other',        # 其他
         }
         question_type = type_map.get(str(qus_type), 'unknown')
 
@@ -229,11 +234,12 @@ class BaiduOCRClient:
             elem_words = elem.get('elem_word', [])
             elem_prob = elem.get('elem_probability', 0)
 
-            # elem_type: "0" = 文本, "2" = 填空位
-            if elem_type == '2':
-                # 填空位置，记录但不添加文本
+            # elem_type: 0=题干, 1=子题, 2=答案, 3=选项, 4=配图, 5=参考答案
+            # 跳过答案和参考答案区域（如果需要答案，可以单独处理）
+            if elem_type in ['2', '5']:
+                # 记录但不添加到题目文本
                 parsed_elements.append({
-                    'type': 'blank',
+                    'type': 'answer' if elem_type == '2' else 'reference',
                     'probability': elem_prob
                 })
                 continue

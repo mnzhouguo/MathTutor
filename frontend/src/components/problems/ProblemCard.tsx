@@ -10,6 +10,7 @@ import {
 } from '@ant-design/icons';
 import { Tag } from 'antd';
 import type { Problem } from '../../api/problemsApi';
+import { getQuestionTypeLabel, getQuestionTypeColor } from '../../utils/problemUtils';
 import './ProblemCard.css';
 
 interface ProblemCardProps {
@@ -59,10 +60,10 @@ const ProblemCard: React.FC<ProblemCardProps> = ({ problem, onView }) => {
       <div className="problem-footer">
         <div className="problem-info">
           {problem.question_type && (
-            <span className="info-badge">
+            <Tag color={getQuestionTypeColor(problem.question_type)}>
               <TagOutlined className="info-icon" />
-              {problem.question_type}
-            </span>
+              {getQuestionTypeLabel(problem.question_type)}
+            </Tag>
           )}
           {problem.difficulty && (
             <span className="difficulty-display">

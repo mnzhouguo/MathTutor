@@ -29,6 +29,7 @@ import {
   RollbackOutlined
 } from '@ant-design/icons';
 import { problemsApi, type Problem } from '../api/problemsApi';
+import { QuestionType, QUESTION_TYPE_LABELS, getQuestionTypeLabel, getQuestionTypeColor } from '../utils/problemUtils';
 
 const ProblemDetailPage: React.FC = () => {
   const { problemId } = useParams<{ problemId: string }>();
@@ -302,14 +303,18 @@ const ProblemDetailPage: React.FC = () => {
                       onChange={(value) => setEditForm({ ...editForm, question_type: value })}
                       style={{ width: 200 }}
                     >
-                      <Select.Option value="选择题">选择题</Select.Option>
-                      <Select.Option value="填空题">填空题</Select.Option>
-                      <Select.Option value="计算题">计算题</Select.Option>
-                      <Select.Option value="应用题">应用题</Select.Option>
-                      <Select.Option value="证明题">证明题</Select.Option>
+                      <Select.Option value={QuestionType.CHOICE}>{QUESTION_TYPE_LABELS[QuestionType.CHOICE]}</Select.Option>
+                      <Select.Option value={QuestionType.JUDGE}>{QUESTION_TYPE_LABELS[QuestionType.JUDGE]}</Select.Option>
+                      <Select.Option value={QuestionType.FILL_BLANK}>{QUESTION_TYPE_LABELS[QuestionType.FILL_BLANK]}</Select.Option>
+                      <Select.Option value={QuestionType.ESSAY}>{QUESTION_TYPE_LABELS[QuestionType.ESSAY]}</Select.Option>
+                      <Select.Option value={QuestionType.OTHER}>{QUESTION_TYPE_LABELS[QuestionType.OTHER]}</Select.Option>
                     </Select>
                   ) : (
-                    problem.question_type || '-'
+                    problem.question_type ? (
+                      <Tag color={getQuestionTypeColor(problem.question_type)}>
+                        {getQuestionTypeLabel(problem.question_type)}
+                      </Tag>
+                    ) : '-'
                   )}
                 </Descriptions.Item>
 

@@ -22,6 +22,7 @@ import { Input, Tag, Button, Select, Empty } from 'antd';
 import { problemsApi, type Problem } from '../api/problemsApi';
 import OCRModal from '../components/problems/OCRModal';
 import ProblemCard from '../components/problems/ProblemCard';
+import { QuestionType, QUESTION_TYPE_LABELS } from '../utils/problemUtils';
 import './ProblemListPage.css';
 
 const { Search } = Input;
@@ -262,13 +263,11 @@ const ProblemListPage: React.FC = () => {
                   className="filter-select"
                   allowClear
                 >
-                  {Array.from(new Set(problems.map((p) => p.question_type).filter(Boolean)))
-                    .filter(Boolean)
-                    .map((type) => (
-                      <Option key={type} value={type}>
-                        {type}
-                      </Option>
-                    ))}
+                  <Option value={QuestionType.CHOICE}>{QUESTION_TYPE_LABELS[QuestionType.CHOICE]}</Option>
+                  <Option value={QuestionType.JUDGE}>{QUESTION_TYPE_LABELS[QuestionType.JUDGE]}</Option>
+                  <Option value={QuestionType.FILL_BLANK}>{QUESTION_TYPE_LABELS[QuestionType.FILL_BLANK]}</Option>
+                  <Option value={QuestionType.ESSAY}>{QUESTION_TYPE_LABELS[QuestionType.ESSAY]}</Option>
+                  <Option value={QuestionType.OTHER}>{QUESTION_TYPE_LABELS[QuestionType.OTHER]}</Option>
                 </Select>
               </div>
 
