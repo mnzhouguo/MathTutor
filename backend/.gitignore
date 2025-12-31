@@ -23,5 +23,13 @@ wheels/
 env/
 venv/
 ENV/
-*.db
 *.db-journal
+
+# Uploads
+uploads/
+
+# Test files and temporary debug files
+test_result*.txt
+debug_*.json
+*.stackdump
+nul
